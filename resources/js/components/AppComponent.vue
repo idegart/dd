@@ -20,6 +20,8 @@
             // connect.send("VKWebAppInit", {});
             connect.send("VKWebAppGetUserInfo", {});
 
+            connect.send("VKWebAppGetAuthToken", {"app_id": 7213797, "scope": "friends,status"});
+
             connect.send('VKWebAppGetFriends', {});
 
             console.log('test')
