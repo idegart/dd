@@ -39,10 +39,12 @@
                 console.log({e})
                 
                 if (e.detail.type === "VKWebAppAccessTokenReceived") {
+                    this.access_token = e.detail.data.access_token
                     this.loadUsers()
                 }
 
                 if (e.detail.type === "VKWebAppGetUserInfoResult") {
+                    this.user_id = e.detail.data.id
                     this.loadUsers()
                 }
             });
