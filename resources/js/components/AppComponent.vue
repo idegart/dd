@@ -22,6 +22,8 @@
 
             connect.send('VKWebAppGetFriends', {});
 
+            console.log('test')
+
             // connect.send("VKWebAppCallAPIMethod", {"method": "execute.ИМЯ_ПРОЦЕДУРЫ", "params": {"НАЗВАНИЕ_ПАРАМЕТРА": "ЗНАЧЕНИЕ_ПАРАМЕТРА", "v": "ВЕРСИЯ_API", "access_token": "ВАШ_КЛЮЧ_ДОСТУПА"}});
         }
     }
