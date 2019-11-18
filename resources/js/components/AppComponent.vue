@@ -29,6 +29,7 @@
                         "user_id": this.user_id,
                         "order": "hints",
                         "access_token": this.access_token,
+                        "v":"5.103",
                     }
                 });
             },
