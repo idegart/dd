@@ -3,6 +3,7 @@ import connect from '@vkontakte/vk-connect';
 export default {
     initApp: ({commit, dispatch}, {app_id = null}) => {
         commit('appId', app_id)
+        console.log('inited')
         dispatch('dispatchEvent', "VKWebAppInit")
         dispatch('getUserInfo')
         dispatch('getAuthToken')
@@ -38,6 +39,7 @@ export default {
     },
 
     dispatchEvent: ({}, {type, params = {}}) => {
+        console.log({type, params})
         connect.send(type, params);
     },
 
