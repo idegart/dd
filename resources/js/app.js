@@ -7,6 +7,9 @@ window.Vue = require('vue');
 
 Vue.component('app-component', require('./components/AppComponent.vue').default);
 
+import store from './store'
+
 const app = new Vue({
     el: '#app',
+    store,
 });
