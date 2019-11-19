@@ -7,23 +7,23 @@
 <script>
     import connect from '@vkontakte/vk-connect';
 
-    import {createNamespacedHelpers} from 'vuex'
-    const {mapActions, mapState} = createNamespacedHelpers('user')
+    import {mapActions, mapState} from 'vuex'
 
     export default {
         name: "AppComponent",
 
         computed: {
-            ...mapState([
-                'user'
-            ]),
+            ...mapState({
+                user: 'user/user',
+            }),
         },
 
         methods: {
-            ...mapActions([
-                'initApp',
-                'handleEvent',
-            ]),
+            ...mapActions({
+                initUserApp: 'user/initApp',
+                handleEvent: 'user/handleEvent',
+                initBaseApp: 'app/initApp',
+            }),
         },
 
         mounted() {
@@ -31,7 +31,9 @@
                 this.handleEvent(e)
             });
 
-            this.initApp({app_id: 7213797})
+            this.initUserApp({app_id: 7213797})
+
+            this.initBaseApp()
         }
     }
 </script>

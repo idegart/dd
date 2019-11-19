@@ -8,6 +8,8 @@
 
     <title>{{ config('app.name') }}</title>
 
+    <style>* {padding: 0; margin: 0}</style>
+
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
 
 </head>
