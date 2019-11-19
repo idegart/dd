@@ -4,20 +4,20 @@ export default {
     initApp: ({commit, dispatch}, {app_id = null}) => {
         commit('appId', app_id)
         console.log('inited')
-        dispatch('dispatchEvent', "VKWebAppInit")
+        dispatch('dispatchEvent', {type: "VKWebAppInit"})
         dispatch('getUserInfo')
         dispatch('getAuthToken')
     },
 
     getUserInfo: ({dispatch}) => {
-        dispatch('dispatchEvent', "VKWebAppGetUserInfo")
+        dispatch('dispatchEvent', {type: "VKWebAppGetUserInfo"})
     },
 
     getAuthToken: ({state, dispatch}) => {
-        dispatch('dispatchEvent', "VKWebAppGetAuthToken", {
+        dispatch('dispatchEvent', {type: "VKWebAppGetAuthToken", params: {
             app_id: state.app_id,
             scope: state.scope.join(','),
-        })
+        }})
     },
 
     loadFriends: ({state, dispatch}) => {
@@ -25,7 +25,7 @@ export default {
             return
         }
 
-        dispatch('dispatchEvent', "VKWebAppCallAPIMethod", {
+        dispatch('dispatchEvent', {type: "VKWebAppCallAPIMethod", params: {
             "method": "friends.get",
             "request_id": "friends.get",
             "params": {
@@ -35,7 +35,7 @@ export default {
                 v:          state.vk_api_version,
                 access_token:   state.access_token,
             }
-        })
+        }})
     },
 
     dispatchEvent: ({}, {type, params = {}}) => {
