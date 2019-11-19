@@ -28,6 +28,7 @@
                     "params": {
                         "user_id": this.user_id,
                         "order": "hints",
+                        "fields": "nickname,domain,photo_50,photo_100,online,last_seen,status,can_write_private_message",
                         "access_token": this.access_token,
                         "v":"5.103",
                     }
