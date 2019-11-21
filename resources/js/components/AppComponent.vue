@@ -1,13 +1,13 @@
 <template>
-    <div>
-        {{ user }}
-    </div>
+<!--    <div>-->
+<!--        {{ user }}-->
+<!--    </div>-->
 </template>
 
 <script>
-    import connect from '@vkontakte/vk-connect';
-
     import {mapActions, mapState} from 'vuex'
+
+    import connect from '@vkontakte/vk-connect';
 
     export default {
         name: "AppComponent",
@@ -32,7 +32,6 @@
             });
 
             this.initUserApp({app_id: 7213797})
-
             this.initBaseApp()
         }
     }
