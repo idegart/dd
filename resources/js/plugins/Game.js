@@ -6,6 +6,8 @@ export default class Game {
     constructor (rootEl) {
         this.rootEl = rootEl;
 
+        console.log(this.rootEl)
+
 
         // this.rootApp = this._setRootApp();
 
@@ -36,8 +38,13 @@ export default class Game {
         let joystick = nipplejs.create({
             zone: this.rootEl,
             mode: 'static',
-            position: {right: '50%', bottom: '15%'},
-            dynamicPage: true,
+            position: {
+                left: '50%',
+                top: '50%'
+            },
+            color: 'red'
+            // position: {right: '50%', bottom: '15%'},
+            // dynamicPage: true,
         });
     }
 
