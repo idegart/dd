@@ -30,7 +30,7 @@ export default class Game {
         this.scoreInterval = null;
 
         this.foodInterval = null;
-        this.foodBaseForce = 5
+        this.foodBaseForce = 10
 
         this.listeners = []
     }
@@ -57,8 +57,11 @@ export default class Game {
 
         this.rootEl.appendChild(app.view);
 
+        if (this.userImage) {
+            app.loader.add(this.userImage)
+        }
+
         app.loader
-            .add(this.userImage)
             .add(FOOD_TYPE)
             .load(() => this._setup());
 
@@ -91,7 +94,7 @@ export default class Game {
 
     _setup () {
         this.scrore = 0;
-        this.foodBaseForce = 5
+        this.foodBaseForce = 2
         this._clearFood()
         this._setUser();
         this._setFoodInterval();
@@ -119,11 +122,11 @@ export default class Game {
                 return
             }
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < (getRandomInt(5) || 1); i++) {
                 this._setFood()
             }
 
-            this.foodBaseForce++;
+            this.foodBaseForce += 0.5;
 
             this._setFoodInterval()
         }, 1000)
@@ -217,7 +220,7 @@ export default class Game {
 
         food._move_direction = direction.name;
         food._move_angle = direction.direction();
-        food._move_force = getRandomFloat(this.foodBaseForce - 3, this.foodBaseForce + 3, 2) * 10;
+        food._move_force = getRandomFloat(this.foodBaseForce - 1, this.foodBaseForce + 1, 2);
         food.x = point.x;
         food.y = point.y;
 
@@ -272,8 +275,8 @@ export default class Game {
                 this.food.splice(this.food.indexOf(food), 1)
             }
 
-            let vx = Math.cos(food._move_angle) * food._move_force / 10,
-                vy = -Math.sin(food._move_angle) * food._move_force / 10;
+            let vx = Math.cos(food._move_angle) * food._move_force,
+                vy = -Math.sin(food._move_angle) * food._move_force;
 
             food.x += vx;
             food.y += vy
