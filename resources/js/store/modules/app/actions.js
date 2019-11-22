@@ -123,22 +123,6 @@ function boxesIntersect(a, b, isCircle = false) {
 
 export default {
     initApp: ({state, commit, dispatch}) => {
-        let joystick = nipplejs.create({
-            mode: 'static',
-            position: {right: '50%', bottom: '15%'},
-            dynamicPage: true,
-        });
-
-        joystick
-            .on('move', (event, data) => {
-                dispatch('handleJoystickMoveEvent', {event, data})
-            })
-            .on('end', () => {
-                dispatch('handleJoystickStopEvent')
-            });
-
-        commit('joystick', joystick);
-
         let app = new PIXI.Application({
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -175,7 +159,8 @@ export default {
         commit('gameScene', gameScene);
         commit('startScene', startScene);
 
-        document.body.appendChild(app.view);
+        let container = document.getElementById('app-container')
+        container.appendChild(app.view);
 
         app.loader
             .add("https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1")
@@ -187,6 +172,23 @@ export default {
                 console.log("progress: " + loader.progress + "%");
             })
             .load(() => dispatch('setup'));
+
+        let joystick = nipplejs.create({
+            zone: container,
+            mode: 'static',
+            position: {right: '50%', bottom: '15%'},
+            dynamicPage: true,
+        });
+
+        joystick
+            .on('move', (event, data) => {
+                dispatch('handleJoystickMoveEvent', {event, data})
+            })
+            .on('end', () => {
+                dispatch('handleJoystickStopEvent')
+            });
+
+        commit('joystick', joystick);
 
         let interval = setInterval(() => {
             for (let i = 0; i < 3; i++) {

@@ -1,7 +1,6 @@
 <template>
-<!--    <div>-->
-<!--        {{ user }}-->
-<!--    </div>-->
+    <div id="app-container">
+    </div>
 </template>
 
 <script>
