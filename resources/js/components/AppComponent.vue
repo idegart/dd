@@ -4,9 +4,9 @@
 </template>
 
 <script>
-    // import {mapActions, mapState} from 'vuex'
-    //
-    // import connect from '@vkontakte/vk-connect';
+    import {mapActions, mapState} from 'vuex'
+
+    import connect from '@vkontakte/vk-connect';
 
     import Game from "../plugins/Game";
 
@@ -14,26 +14,26 @@
         name: "AppComponent",
 
         computed: {
-            // ...mapState({
-            //     user: 'user/user',
-            // }),
+            ...mapState({
+                user: 'user/user',
+            }),
         },
 
         methods: {
-            // ...mapActions({
-            //     initUserApp: 'user/initApp',
-            //     handleEvent: 'user/handleEvent',
-            //     initBaseApp: 'app/initApp',
-            // }),
+            ...mapActions({
+                initUserApp: 'user/initApp',
+                handleEvent: 'user/handleEvent',
+                // initBaseApp: 'app/initApp',
+            }),
         },
 
         mounted() {
             let game = new Game(document.getElementById('app-container'))
-            // connect.subscribe((e) => {
-            //     this.handleEvent(e)
-            // });
+            connect.subscribe((e) => {
+                this.handleEvent(e)
+            });
             //
-            // this.initUserApp({app_id: 7213797})
+            this.initUserApp({app_id: 7213797})
             // this.initBaseApp()
         }
     }
