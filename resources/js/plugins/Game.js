@@ -30,9 +30,7 @@ export default class Game {
         this.scoreInterval = null;
 
         this.foodInterval = null;
-        this.foodIntervalTime = 1000;
-
-        this.foodTimeInterval = null
+        this.foodBaseForce = 5
 
         this.listeners = []
     }
@@ -58,8 +56,6 @@ export default class Game {
         app.renderer.backgroundColor = 0x061639;
 
         this.rootEl.appendChild(app.view);
-
-        console.log(this.userImage)
 
         app.loader
             .add(this.userImage)
@@ -95,12 +91,11 @@ export default class Game {
 
     _setup () {
         this.scrore = 0;
-        this.foodIntervalTime = 1000;
+        this.foodBaseForce = 5
         this._clearFood()
         this._setUser();
         this._setFoodInterval();
         this._setScoreInterval();
-        this._setFoodTimeInterval();
 
         if (!this.isPlaying) {
             this.isPlaying = true;
@@ -124,12 +119,14 @@ export default class Game {
                 return
             }
 
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 4; i++) {
                 this._setFood()
             }
 
+            this.foodBaseForce++;
+
             this._setFoodInterval()
-        }, this.foodIntervalTime)
+        }, 1000)
     }
 
     _setScoreInterval () {
@@ -148,17 +145,6 @@ export default class Game {
         }, 1000)
     }
 
-    _setFoodTimeInterval () {
-        clearInterval(this.foodTimeInterval);
-
-        this.foodTimeInterval = setInterval(() => {
-            if (!this.user) {
-                return
-            }
-            this.foodIntervalTime -= 100
-        }, 1000)
-    }
-
     _gameOver () {
         this._emitEvent('over', this.scrore)
 
@@ -167,15 +153,13 @@ export default class Game {
 
         clearInterval(this.foodInterval);
         clearInterval(this.scoreInterval);
-        clearInterval(this.foodTimeInterval);
     }
 
     _setUser () {
-        let user = new PIXI.Container();
+        let user = new PIXI.Container(),
+            storedResource = this.userImage ? this.rootApp.loader.resources[this.userImage] : null
 
-        console.log(this.userImage)
-
-        let sprite = new PIXI.Sprite(this.rootApp.loader.resources[this.userImage].texture);
+        let sprite = new PIXI.Sprite(storedResource ? storedResource.texture : null);
         sprite.width = sprite.height = SIZE;
 
         let circleMask = new PIXI.Graphics();
@@ -203,7 +187,6 @@ export default class Game {
     }
 
     _setFood () {
-        // const resource = "https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1";
         const resource = FOOD_TYPE[0];
 
         let food = new PIXI.Container(),
@@ -234,7 +217,7 @@ export default class Game {
 
         food._move_direction = direction.name;
         food._move_angle = direction.direction();
-        food._move_force = getRandomFloat(1, 6, 2) * 10;
+        food._move_force = getRandomFloat(this.foodBaseForce - 3, this.foodBaseForce + 3, 2) * 10;
         food.x = point.x;
         food.y = point.y;
 
