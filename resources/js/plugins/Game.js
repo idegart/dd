@@ -96,6 +96,7 @@ export default class Game {
     _setup () {
         this.scrore = 0;
         this.foodIntervalTime = 1000;
+        this._clearFood()
         this._setUser();
         this._setFoodInterval();
         this._setScoreInterval();
@@ -105,6 +106,14 @@ export default class Game {
             this.isPlaying = true;
             this._gameLoop()
         }
+    }
+
+    _clearFood () {
+        this.food.forEach(food => {
+            this.rootApp.stage.removeChild(food)
+        })
+
+        this.food = []
     }
 
     _setFoodInterval () {
