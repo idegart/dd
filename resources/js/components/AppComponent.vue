@@ -56,20 +56,19 @@
         },
 
         mounted() {
-            let image = "https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1";
-
-            this.game = new Game(document.getElementById('app-container'), image)
-
-            this.game.on('over', score => {
-                this.score = score
-                $('#scoreModal').modal('show')
-            })
+            this.initUserApp({app_id: 7213797})
 
             connect.subscribe((e) => {
                 this.handleEvent(e)
+                if (e.detail.type === "VKWebAppGetUserInfoResult") {
+                    let image = e.detail.data.photo_100;
+                    this.game = new Game(document.getElementById('app-container'), image)
+                    this.game.on('over', score => {
+                        this.score = score
+                        $('#scoreModal').modal('show')
+                    })
+                }
             });
-
-            this.initUserApp({app_id: 7213797})
 
             $('#scoreModal').on('hidden.bs.modal', () => {
                 this.game.retry()
