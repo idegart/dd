@@ -1,5 +1,5 @@
 <template>
-    <div id="app-container" style="background-color: green; height: 100vh; width: 100vw">
+    <div id="app-container" style="background-color: green; height: 100vh; width: 100vw;position: absolute;">
     </div>
 </template>
 

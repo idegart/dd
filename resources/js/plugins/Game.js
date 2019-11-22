@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import nipplejs from "nipplejs";
+import nipple from "nipplejs";
 
 
 export default class Game {
@@ -35,7 +35,8 @@ export default class Game {
     }
 
     _setJoystick () {
-        let joystick = nipplejs.create({
+
+        let joystick = nipple.create({
             zone: this.rootEl,
             mode: 'static',
             position: {

@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "@vkontakte/vk-connect": "^1.6.9",
-        "nipplejs": "^0.8.3",
+        "nipplejs": "0.8.1",
         "pixi.js": "^5.2.0",
         "vuex": "^3.1.2"
     }
