@@ -1,38 +1,69 @@
 import * as PIXI from "pixi.js";
 import nipple from "nipplejs";
+import {boxesIntersect, contain, DIRECTIONS, getRandomFloat, getRandomInt, SIZE} from "./gameHelpers";
 
+const MAX_SCORE = 30
+const FOOD_TYPE = [
+    "/storage/images/hamburger.png"
+]
 
 export default class Game {
-    constructor (rootEl) {
+    constructor (rootEl, userImage) {
         this.rootEl = rootEl;
-
-        this.SIZE = window.innerWidth > 400 ? 80 : 40
+        this.userImage = userImage
 
         this.rootApp = this._setRootApp();
-        this.rootJoystick = this._setJoystick()
+        this.rootJoystick = this._setJoystick();
 
-        this.user = null
+        this.user = null;
+        this.food = [];
 
         this.userMove = {
             force: 0,
             angle: 0,
-        }
+        };
+
+        this.isPlaying = false;
+
+        this.scrore = 0;
+        this.scroreEl = this._setScore();
+        this.scoreInterval = null;
+
+        this.foodInterval = null;
+        this.foodIntervalTime = 1000;
+
+        this.foodTimeInterval = null
+
+        this.listeners = []
+    }
+
+    on (name, cb) {
+        this.listeners.push({name, cb});
+
+        return this;
+    }
+
+    retry () {
+        this._setup()
     }
 
     _setRootApp() {
         let app = new PIXI.Application({
-                width: window.innerWidth,
-                height: window.innerHeight,
-                transparent: false,
-            }
-        )
+            width: window.innerWidth,
+            height: window.innerHeight,
+            transparent: false,
+            resolution: 1
+        });
 
         app.renderer.backgroundColor = 0x061639;
 
         this.rootEl.appendChild(app.view);
 
+        console.log(this.userImage)
+
         app.loader
-            .add("https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1")
+            .add(this.userImage)
+            .add(FOOD_TYPE)
             .load(() => this._setup());
 
         return app
@@ -63,28 +94,90 @@ export default class Game {
     }
 
     _setup () {
-        this._setUser()
+        this.scrore = 0;
+        this.foodIntervalTime = 1000;
+        this._setUser();
+        this._setFoodInterval();
+        this._setScoreInterval();
+        this._setFoodTimeInterval();
 
-        this._gameLoop()
+        if (!this.isPlaying) {
+            this.isPlaying = true;
+            this._gameLoop()
+        }
+    }
+
+    _setFoodInterval () {
+        clearInterval(this.foodInterval);
+
+        this.foodInterval = setInterval(() => {
+            if (!this.user) {
+                return
+            }
+
+            for (let i = 0; i < 3; i++) {
+                this._setFood()
+            }
+
+            this._setFoodInterval()
+        }, this.foodIntervalTime)
+    }
+
+    _setScoreInterval () {
+        clearInterval(this.scoreInterval);
+
+        this.scoreInterval = setInterval(() => {
+            if (!this.user) {
+                return
+            }
+            this.scrore++
+
+            if (this.scrore > MAX_SCORE - 1) {
+                clearInterval(this.scoreInterval)
+            }
+
+        }, 1000)
+    }
+
+    _setFoodTimeInterval () {
+        clearInterval(this.foodTimeInterval);
+
+        this.foodTimeInterval = setInterval(() => {
+            if (!this.user) {
+                return
+            }
+            this.foodIntervalTime -= 100
+        }, 1000)
+    }
+
+    _gameOver () {
+        this._emitEvent('over', this.scrore)
+
+        this.rootApp.stage.removeChild(this.user);
+        this.user = null;
+
+        clearInterval(this.foodInterval);
+        clearInterval(this.scoreInterval);
+        clearInterval(this.foodTimeInterval);
     }
 
     _setUser () {
-        const resource = "https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1";
-
         let user = new PIXI.Container();
 
-        let sprite = new PIXI.Sprite(this.rootApp.loader.resources[resource].texture);
-        sprite.width = sprite.height = this.SIZE;
+        console.log(this.userImage)
+
+        let sprite = new PIXI.Sprite(this.rootApp.loader.resources[this.userImage].texture);
+        sprite.width = sprite.height = SIZE;
 
         let circleMask = new PIXI.Graphics();
         circleMask.beginFill(0, 1);
-        circleMask.drawCircle(this.SIZE / 2, this.SIZE / 2, this.SIZE / 2);
+        circleMask.drawCircle(SIZE / 2, SIZE / 2, SIZE / 2);
         circleMask.endFill();
 
         let circleLine = new PIXI.Graphics();
         circleLine.beginFill(0, 0);
-        circleLine.lineStyle(this.SIZE / 5, 0x99CCFF, 1);
-        circleLine.drawCircle(this.SIZE / 2, this.SIZE / 2, this.SIZE / 2);
+        circleLine.lineStyle(SIZE / 5, 0x99CCFF, 1);
+        circleLine.drawCircle(SIZE / 2, SIZE / 2, SIZE / 2);
         circleLine.endFill();
 
         user.addChild(sprite);
@@ -93,11 +186,74 @@ export default class Game {
 
         user.mask = circleMask;
 
-        user.x = window.innerWidth / 2 - this.SIZE / 2;
-        user.y = window.innerHeight / 2 - this.SIZE / 2;
+        user.x = window.innerWidth / 2 - SIZE / 2;
+        user.y = window.innerHeight / 2 - SIZE / 2;
 
-        this.rootApp.stage.addChild(user)
+        this.rootApp.stage.addChild(user);
         this.user = user
+    }
+
+    _setFood () {
+        // const resource = "https://sun9-23.userapi.com/c623422/v623422145/34dbc/2BLzJkwdTMg.jpg?ava=1";
+        const resource = FOOD_TYPE[0];
+
+        let food = new PIXI.Container(),
+            storedResource = this.rootApp.loader.resources[resource]
+
+        let sprite = new PIXI.Sprite(storedResource ? storedResource.texture : null);
+        sprite.width = sprite.height = SIZE;
+
+        let circleMask = new PIXI.Graphics();
+        circleMask.beginFill(0, 1);
+        circleMask.drawCircle(SIZE / 2, SIZE / 2, SIZE / 2);
+        circleMask.endFill();
+
+        let circleLine = new PIXI.Graphics();
+        circleLine.beginFill(0, 0);
+        circleLine.lineStyle(SIZE / 5, 0xBE0D14, 1);
+        circleLine.drawCircle(SIZE / 2, SIZE / 2, SIZE / 2);
+        circleLine.endFill();
+
+        food.addChild(sprite);
+        food.addChild(circleMask);
+        food.addChild(circleLine);
+
+        food.mask = circleMask;
+
+        let direction = DIRECTIONS[getRandomInt(4)],
+            point = direction.point();
+
+        food._move_direction = direction.name;
+        food._move_angle = direction.direction();
+        food._move_force = getRandomFloat(1, 6, 2) * 10;
+        food.x = point.x;
+        food.y = point.y;
+
+        this.food.push(food);
+        this.rootApp.stage.addChild(food)
+    }
+
+    _setScore () {
+        let style = new PIXI.TextStyle({
+            fontFamily: "Arial",
+            fontSize: 36,
+            fill: "white",
+            stroke: '#00be32',
+            strokeThickness: 4,
+            dropShadow: true,
+            dropShadowColor: "#000000",
+            dropShadowBlur: 4,
+            dropShadowAngle: Math.PI / 6,
+            dropShadowDistance: 6,
+        });
+
+        let message = new PIXI.Text(this.scrore, style);
+
+        message.x = message.y = 10
+
+        this.rootApp.stage.addChild(message);
+
+        return message
     }
 
     _playUser () {
@@ -105,6 +261,7 @@ export default class Game {
             return
         }
 
+        contain(this.user);
 
         let vx = Math.cos(this.userMove.angle) * this.userMove.force / 10,
             vy = -Math.sin(this.userMove.angle) * this.userMove.force / 10;
@@ -113,10 +270,53 @@ export default class Game {
         this.user.y += vy
     }
 
-    _gameLoop () {
-        this._playUser()
+    _playFood () {
+        this.food.forEach(food => {
+            let w = food.width,
+                h = food.height;
 
-        requestAnimationFrame(() => this._gameLoop())
+            if (contain(food, {x: 0 - w * 2, y: 0 - h * 2, width: window.innerWidth + w * 2, height: window.innerHeight + h * 2})) {
+                this.rootApp.stage.removeChild(food);
+                this.food.splice(this.food.indexOf(food), 1)
+            }
+
+            let vx = Math.cos(food._move_angle) * food._move_force / 10,
+                vy = -Math.sin(food._move_angle) * food._move_force / 10;
+
+            food.x += vx;
+            food.y += vy
+        })
     }
 
+    _checkHit () {
+        this.food.forEach(food => {
+            if (this.user && boxesIntersect(this.user, food, true)) {
+                this._gameOver()
+            }
+        })
+    }
+
+    _gameLoop () {
+        this._playUser();
+
+        this._playFood();
+
+        this._checkHit();
+
+        this.scroreEl.text = this.scrore;
+
+        if (this.scrore > MAX_SCORE - 5) {
+            this.scroreEl.style.fill = 'red'
+        }
+
+        if (this.isPlaying) {
+            requestAnimationFrame(() => this._gameLoop())
+        }
+    }
+
+    _emitEvent(name, data) {
+        this.listeners
+            .filter(listener => listener.name === name)
+            .forEach(listener => listener.cb(data))
+    }
 }
