@@ -5,7 +5,9 @@ import nipplejs from "nipplejs";
 export default class Game {
     constructor (rootEl) {
         this.rootEl = rootEl;
-        this.rootApp = this._setRootApp();
+
+
+        // this.rootApp = this._setRootApp();
 
         this._setJoystick()
     }
