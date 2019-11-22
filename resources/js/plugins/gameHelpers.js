@@ -100,8 +100,8 @@ function contain(sprite, container = {x: 0, y: 0, width: window.innerWidth, heig
 }
 
 function boxesIntersect(a, b, isCircle = false) {
-    let ab = a.getBounds(),
-        bb = b.getBounds();
+    let ab = a.mask.getBounds(),
+        bb = b.mask.getBounds();
 
     if (isCircle) {
         let aRadius = ab.height / 2,
