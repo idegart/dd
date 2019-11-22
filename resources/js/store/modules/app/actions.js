@@ -125,7 +125,8 @@ export default {
     initApp: ({state, commit, dispatch}) => {
         let joystick = nipplejs.create({
             mode: 'static',
-            position: {right: '50%', bottom: '15%'}
+            position: {right: '50%', bottom: '15%'},
+            dynamicPage: true,
         });
 
         joystick
