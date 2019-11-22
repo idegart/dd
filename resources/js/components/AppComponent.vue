@@ -58,11 +58,11 @@
         mounted() {
             this.initUserApp({app_id: 7213797})
 
-            this.game = new Game(document.getElementById('app-container'))
-            this.game.on('over', score => {
-                this.score = score
-                $('#scoreModal').modal('show')
-            })
+            // this.game = new Game(document.getElementById('app-container'))
+            // this.game.on('over', score => {
+            //     this.score = score
+            //     $('#scoreModal').modal('show')
+            // })
 
             connect.subscribe((e) => {
                 this.handleEvent(e)
