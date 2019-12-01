@@ -347,7 +347,7 @@ export default class SocialGame extends BaseGameScene {
         this.player.setPosition(window.innerWidth / 2, window.innerHeight / 2);
 
         this.spawnEnemyTimer = setInterval(() => {
-            if (document.hasFocus()) {
+            if (document.hasFocus() && this.enemies.length < (IS_MOBILE ? 6 : 12)) {
                 this.createEnemy()
             }
         }, 1000);
