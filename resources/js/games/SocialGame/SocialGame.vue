@@ -25,7 +25,7 @@
                     <div class="modal-footer">
                         <ul class="list-unstyled w-100 m-0">
                             <li>
-                                <button id="init_startGame" data-dismiss="modal" type="button" class="btn btn-primary btn-lg btn-block">
+                                <button @click="startGame" type="button" class="btn btn-primary btn-lg btn-block">
                                     Попытать удачу
                                 </button>
                             </li>
@@ -70,17 +70,17 @@
                     <div class="modal-footer">
                         <ul class="list-unstyled w-100 m-0">
                             <li>
-                                <button id="end_startGame" type="button" class="btn btn-primary btn-lg btn-block">
+                                <button @click="startGame" type="button" class="btn btn-primary btn-lg btn-block">
                                     Попытать удачу еще раз
                                 </button>
                             </li>
                             <li class="mt-3">
-                                <button id="end_share" type="button" class="btn btn-secondary btn-lg btn-block">
+                                <button @click="share" type="button" class="btn btn-secondary btn-lg btn-block">
                                     Поделиться с друзьяшками
                                 </button>
                             </li>
                             <li class="mt-3">
-                                <button id="end_wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
+                                <button @click="wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
                                     Опубликовать на стене
                                 </button>
                             </li>
@@ -178,10 +178,6 @@
                 $(id).modal('hide')
             },
 
-            clickHelper (el, cb) {
-                $(el).on('click', () => cb())
-            },
-
             share () {
                 this.$store.dispatch('vk/dispatchShare', {
                     link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`
@@ -203,11 +199,6 @@
 
         mounted() {
             this.$store.dispatch('vk/initApp', {app_id: process.env.MIX_GAME_SOCIAL_VK_APP_ID})
-
-            // this.clickHelper('#init_startGame', this.startGame)
-            // this.clickHelper('#end_startGame', this.startGame)
-            // this.clickHelper('#end_share', this.share)
-            // this.clickHelper('#end_wallPost', this.wallPost)
         }
     }
 </script>

@@ -85,8 +85,6 @@ export default class SocialGame extends BaseGameScene {
 
         this.updateBackground();
 
-        this.setJoystick();
-
         this.game.events.on('startGame', () => this.startGame())
     }
 
@@ -116,6 +114,15 @@ export default class SocialGame extends BaseGameScene {
                     force: 0
                 }
             });
+    }
+
+    removeJoystick () {
+        this.joystick.destroy()
+        this.joystick = null
+        this.userMove = {
+            angle: 0,
+            force: 0
+        }
     }
 
     updatePlayer() {
@@ -340,6 +347,8 @@ export default class SocialGame extends BaseGameScene {
 
         this.updateBackground();
 
+        this.setJoystick();
+
         times(3, () => this.addSafeCup());
 
         this.isPlaying = true;
@@ -372,6 +381,8 @@ export default class SocialGame extends BaseGameScene {
             this.isPlaying = true;
             return;
         }
+
+        this.removeJoystick()
 
         this.player.setVisible(false);
 
