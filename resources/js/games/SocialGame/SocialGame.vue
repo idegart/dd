@@ -204,10 +204,10 @@
         mounted() {
             this.$store.dispatch('vk/initApp', {app_id: process.env.MIX_GAME_SOCIAL_VK_APP_ID})
 
-            this.clickHelper('#init_startGame', this.startGame)
-            this.clickHelper('#end_startGame', this.startGame)
-            this.clickHelper('#end_share', this.share)
-            this.clickHelper('#end_wallPost', this.wallPost)
+            // this.clickHelper('#init_startGame', this.startGame)
+            // this.clickHelper('#end_startGame', this.startGame)
+            // this.clickHelper('#end_share', this.share)
+            // this.clickHelper('#end_wallPost', this.wallPost)
         }
     }
 </script>
