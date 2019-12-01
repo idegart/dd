@@ -43,27 +43,24 @@
                     </div>
                     <div class="modal-body">
                         <dl class="row">
-<!--                            <dt class="col-sm-3">Вы достигли:</dt>-->
-<!--                            <dd class="col-sm-9">Тут </dd>-->
-
                             <dt class="col-sm-3">Вас постигло:</dt>
                             <dd class="col-sm-9">
                                 <div>
                                     {{enemyData.name}}
                                 </div>
                                 <div>
-                                    {{enemyData.image || 'Тут какая-то картинка с происшествия'}}
+                                    <img v-if="enemyData && enemyData.image" :src="enemyData.image" alt="" width="100%">
                                 </div>
                             </dd>
 
                             <dt class="col-sm-3">Информация:</dt>
                             <dd class="col-sm-9">
-                                {{enemyData.description || 'Тут какая-то информация о происшествии'}}
+                                {{enemyData.description}}
                             </dd>
 
                             <dt class="col-sm-3">Источник:</dt>
                             <dd class="col-sm-9">
-                                {{enemyData.description || 'Тут ссылка на источник'}}
+                                <a :href="enemyData.source" target="_blank">К источнику</a>
                             </dd>
                         </dl>
                     </div>
