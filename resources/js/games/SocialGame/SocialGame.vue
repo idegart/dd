@@ -73,12 +73,12 @@
                             </li>
                             <li class="mt-3">
                                 <button @click="share" type="button" class="btn btn-secondary btn-lg btn-block">
-                                    Share
+                                    Поделиться с друзьяшками
                                 </button>
                             </li>
                             <li class="mt-3">
                                 <button @click="wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
-                                    WallPost
+                                    Опубликовать на стене
                                 </button>
                             </li>
                         </ul>
