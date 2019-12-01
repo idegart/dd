@@ -149,10 +149,14 @@
 
         methods: {
             startGame () {
-                this.hideModal('#initialGameModal')
-                this.hideModal('#endGameModal')
+                try {
+                    this.hideModal('#initialGameModal')
+                    this.hideModal('#endGameModal')
 
-                this.game.events.emit('startGame')
+                    this.game.events.emit('startGame')
+                } catch (e) {
+                    alert(e.message)
+                }
             },
 
             initGame () {
