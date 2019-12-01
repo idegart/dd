@@ -64,8 +64,13 @@
                                 </button>
                             </li>
                             <li class="mt-3">
-                                <button @click="startGame" type="button" class="btn btn-secondary btn-lg btn-block">
-                                    Поделиться с согражданами
+                                <button @click="share" type="button" class="btn btn-secondary btn-lg btn-block">
+                                    Share
+                                </button>
+                            </li>
+                            <li class="mt-3">
+                                <button @click="wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
+                                    WallPost
                                 </button>
                             </li>
                         </ul>
@@ -153,6 +158,14 @@
 
             hideModal (id) {
                 $(id).modal('hide')
+            },
+
+            share () {
+                this.$store.dispatch('vk/dispatchShare')
+            },
+
+            wallPost () {
+                this.$store.dispatch('vk/dispatchWallPost')
             },
         },
 

@@ -14,6 +14,14 @@ export default {
         // dispatch('dispatchEvent', {type: "VKWebAppGetUserInfo"})
     },
 
+    dispatchShare: ({dispatch}) => {
+        dispatch('dispatchEvent', {type: "VKWebAppShare", link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`})
+    },
+
+    dispatchWallPost: ({dispatch}) => {
+        dispatch('dispatchEvent', {type: "VKWebAppShowWallPostBox", message: `Hello!`})
+    },
+
     dispatchEvent: ({}, {type, params = {}}) => {
         console.log('VKApp dispatch event:', {type, params})
         connect.send(type, params);
