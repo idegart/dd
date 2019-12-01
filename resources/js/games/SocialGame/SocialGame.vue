@@ -11,15 +11,10 @@
                             Добро пожаловать в игру "Жызн в Росеи"
                         </div>
                         <div>
-                            Ваш братуха - пластиковый стаканчик, все остальное лишает Вас настоящей жизни!
+                            Не потрать все свои пластиковые стаканчики и не упусти возможность подобрать чужие
                         </div>
                         <div>
                             Чтобы управлять - води пальцем по экрану
-                        </div>
-                        <div>
-                            Accusamus alias asperiores atque beatae deleniti et exercitationem impedit qui sit.
-                            Aspernatur assumenda at consequatur doloremque id, magnam minus omnis quam quis recusandae
-                            sunt tempore temporibus! Ad aliquid eligendi inventore?
                         </div>
                     </div>
                     <div class="modal-footer">
