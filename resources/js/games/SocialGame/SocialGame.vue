@@ -14,6 +14,9 @@
                             Ваш братуха - пластиковый стаканчик, все остальное лишает Вас настоящей жизни!
                         </div>
                         <div>
+                            Чтобы управлять - води пальцем по экрану
+                        </div>
+                        <div>
                             Accusamus alias asperiores atque beatae deleniti et exercitationem impedit qui sit.
                             Aspernatur assumenda at consequatur doloremque id, magnam minus omnis quam quis recusandae
                             sunt tempore temporibus! Ad aliquid eligendi inventore?
