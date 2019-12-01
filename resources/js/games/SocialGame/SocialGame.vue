@@ -7,15 +7,14 @@
                         <h5 class="modal-title">Добро пожаловать</h5>
                     </div>
                     <div class="modal-body">
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aspernatur corporis
-                            cumque dolore doloremque dolores eos expedita harum maxime necessitatibus, odit pariatur
-                            possimus quos sequi tempore, temporibus. Libero, voluptatem.
+                        <div>
+                            Добро пожаловать в игру "Жызн в Росеи"
                         </div>
-                        <div>Ab autem cum, dicta dolores eos eveniet in incidunt ipsam libero modi rerum ullam velit.
-                            Aperiam consequatur culpa et facere ipsa itaque, iusto laudantium, maiores, praesentium
-                            quasi totam vitae voluptatum!
+                        <div>
+                            Ваш братуха - пластиковый стаканчик, все остальное лишает Вас настоящей жизни!
                         </div>
-                        <div>Accusamus alias asperiores atque beatae deleniti et exercitationem impedit qui sit.
+                        <div>
+                            Accusamus alias asperiores atque beatae deleniti et exercitationem impedit qui sit.
                             Aspernatur assumenda at consequatur doloremque id, magnam minus omnis quam quis recusandae
                             sunt tempore temporibus! Ad aliquid eligendi inventore?
                         </div>
@@ -41,19 +40,28 @@
                     </div>
                     <div class="modal-body">
                         <dl class="row">
-                            <dt class="col-sm-3">Вы достигли:</dt>
-                            <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+<!--                            <dt class="col-sm-3">Вы достигли:</dt>-->
+<!--                            <dd class="col-sm-9">Тут </dd>-->
 
                             <dt class="col-sm-3">Вас постигло:</dt>
                             <dd class="col-sm-9">
-                                {{ enemu && enemu.name }}
+                                <div>
+                                    {{enemyData.image || 'Тут какая-то картинка с происшествия'}}
+                                </div>
+                                <div>
+                                    {{enemyData.name}}
+                                </div>
                             </dd>
 
                             <dt class="col-sm-3">Информация:</dt>
-                            <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+                            <dd class="col-sm-9">
+                                {{enemyData.description || 'Тут какая-то информация о происшествии'}}
+                            </dd>
 
                             <dt class="col-sm-3">Источник:</dt>
-                            <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+                            <dd class="col-sm-9">
+                                {{enemyData.description || 'Тут ссылка на источник'}}
+                            </dd>
                         </dl>
                     </div>
                     <div class="modal-footer">
@@ -112,13 +120,17 @@
                 },
 
                 score: 0,
-                enemu: null,
+                enemy: null,
             }
         },
 
         computed: {
             vkAppInitialized () {
                 return this.$store.getters['vk/initialized']
+            },
+
+            enemyData () {
+                return this.enemy && SocialGame.getEnemyDescription(this.enemy.name) || {}
             }
         },
 
@@ -145,7 +157,7 @@
 
                 this.game.events.on('gameOver', ({enemy, score}) => {
                     this.score = score
-                    this.enemu = enemy
+                    this.enemy = enemy
                     console.log('gameOver', {enemy, score})
 
                     this.showModal('#endGameModal')

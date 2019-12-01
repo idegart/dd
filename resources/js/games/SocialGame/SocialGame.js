@@ -85,7 +85,7 @@ export default class SocialGame extends BaseGameScene {
 
         this.updateBackground();
 
-        this.setJoystick()
+        this.setJoystick();
 
         this.game.events.on('startGame', () => this.startGame())
     }
@@ -128,7 +128,7 @@ export default class SocialGame extends BaseGameScene {
         }
 
         if (this.userMove.angle) {
-            this.moveUserByJoystick()
+            this.moveUserByJoystick();
             return
         }
 
@@ -166,7 +166,7 @@ export default class SocialGame extends BaseGameScene {
         this.enemies.forEach(enemy => {
             if (this.isPlaying) {
                 this.physics.collide(this.player, enemy, () => {
-                    this.destroyEnemy(enemy)
+                    this.destroyEnemy(enemy);
 
                     if (enemy.is_cup) {
                         this.addSafeCup();
@@ -301,7 +301,7 @@ export default class SocialGame extends BaseGameScene {
             return
         }
 
-        this.removeSafeCup()
+        this.removeSafeCup();
 
         let cup = this.physics.add.sprite(this.player.x, this.player.y, 'cup');
         cup.setImmovable(true);
@@ -368,8 +368,8 @@ export default class SocialGame extends BaseGameScene {
         this.isPlaying = false;
 
         if (this.safeCups.length) {
-            this.removeSafeCup()
-            this.isPlaying = true
+            this.removeSafeCup();
+            this.isPlaying = true;
             return;
         }
 
@@ -382,5 +382,98 @@ export default class SocialGame extends BaseGameScene {
             enemy,
             score: this.score
         })
+    }
+
+
+    static getEnemyDescription (enemyName) {
+        let obj = {
+            name: '',
+            image: '',
+            description: '',
+            source: '',
+            target: '',
+        };
+
+        switch (enemyName) {
+            case 'dollar':
+                obj.name = 'Коррупция';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'bridge':
+                obj.name = 'Крымский мост';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'ball':
+                obj.name = 'Кокорин и Мамаев';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'forest':
+                obj.name = 'Вырубка лесов';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'hole':
+                obj.name = 'Дыры на дорогах';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'construction':
+                obj.name = 'Долгострои';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'duma':
+                obj.name = 'Выборы в Думу';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'trash':
+                obj.name = 'Мусорная реформа';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'med':
+                obj.name = 'Уволнение мед.работников';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'policeman':
+                obj.name = 'Полицейский беспредел';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+            case 'fire':
+                obj.name = '"Экономически невыгодные" пожары';
+                obj.image = '';
+                obj.description = '';
+                obj.source = '';
+                obj.target = '';
+                break;
+        }
+
+        return obj
     }
 }
