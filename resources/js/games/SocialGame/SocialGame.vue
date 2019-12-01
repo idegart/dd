@@ -70,17 +70,17 @@
                     <div class="modal-footer">
                         <ul class="list-unstyled w-100 m-0">
                             <li>
-                                <button @click.native="startGame" type="button" class="btn btn-primary btn-lg btn-block">
+                                <button @click="startGame" type="button" class="btn btn-primary btn-lg btn-block">
                                     Попытать удачу еще раз
                                 </button>
                             </li>
                             <li class="mt-3">
-                                <button @click.native="share" type="button" class="btn btn-secondary btn-lg btn-block">
+                                <button @click="share" type="button" class="btn btn-secondary btn-lg btn-block">
                                     Поделиться с друзьяшками
                                 </button>
                             </li>
                             <li class="mt-3">
-                                <button @click.native="wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
+                                <button @click="wallPost" type="button" class="btn btn-secondary btn-lg btn-block">
                                     Опубликовать на стене
                                 </button>
                             </li>
