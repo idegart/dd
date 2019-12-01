@@ -15,11 +15,15 @@ export default {
     },
 
     dispatchShare: ({dispatch}) => {
-        dispatch('dispatchEvent', {type: "VKWebAppShare", link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`})
+        dispatch('dispatchEvent', {type: "VKWebAppShare", params: {
+            link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`
+        }})
     },
 
     dispatchWallPost: ({dispatch}) => {
-        dispatch('dispatchEvent', {type: "VKWebAppShowWallPostBox", message: `Hello!`})
+        dispatch('dispatchEvent', {type: "VKWebAppShowWallPostBox", params: {
+            message: `Hello!`
+        }})
     },
 
     dispatchEvent: ({}, {type, params = {}}) => {
