@@ -161,11 +161,15 @@
             },
 
             share () {
-                this.$store.dispatch('vk/dispatchShare')
+                this.$store.dispatch('vk/dispatchShare', {
+                    link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`
+                })
             },
 
             wallPost () {
-                this.$store.dispatch('vk/dispatchWallPost')
+                this.$store.dispatch('vk/dispatchWallPost', {
+                    message: `Я убежал от Росеи на ${this.score}км. Кто сможет дальше? Спасити миня!!`
+                })
             },
         },
 

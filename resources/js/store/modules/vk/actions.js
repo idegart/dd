@@ -14,16 +14,12 @@ export default {
         // dispatch('dispatchEvent', {type: "VKWebAppGetUserInfo"})
     },
 
-    dispatchShare: ({dispatch}) => {
-        dispatch('dispatchEvent', {type: "VKWebAppShare", params: {
-            link: `https://vk.com/app${process.env.MIX_GAME_SOCIAL_VK_APP_ID}`
-        }})
+    dispatchShare: ({dispatch}, {link}) => {
+        dispatch('dispatchEvent', {type: "VKWebAppShare", params: {link}})
     },
 
-    dispatchWallPost: ({dispatch}) => {
-        dispatch('dispatchEvent', {type: "VKWebAppShowWallPostBox", params: {
-            message: `Hello!`
-        }})
+    dispatchWallPost: ({dispatch}, {message}) => {
+        dispatch('dispatchEvent', {type: "VKWebAppShowWallPostBox", params: {message}})
     },
 
     dispatchEvent: ({}, {type, params = {}}) => {
