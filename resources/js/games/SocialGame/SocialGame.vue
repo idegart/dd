@@ -46,10 +46,10 @@
                             <dt class="col-sm-3">Вас постигло:</dt>
                             <dd class="col-sm-9">
                                 <div>
-                                    {{enemyData.image || 'Тут какая-то картинка с происшествия'}}
+                                    {{enemyData.name}}
                                 </div>
                                 <div>
-                                    {{enemyData.name}}
+                                    {{enemyData.image || 'Тут какая-то картинка с происшествия'}}
                                 </div>
                             </dd>
 
