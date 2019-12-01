@@ -2,12 +2,18 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const gameFiles = require.context('./games', true, /\.vue$/i);
+gameFiles.keys().map(key => {
+    let componentName = key.split('/').pop().split('.')[0],
+        path = `./games/${key.replace(/\.\//, '')}`
 
-Vue.component('app-component', require('./components/AppComponent.vue').default);
+    Vue.component(componentName, () => import(
+        /* webpackMode: "lazy" */
+        /* webpackChunkName: "[request]" */
+        `${path}`))
+});
 
-import store from './store'
+import store from '@store'
 
 const app = new Vue({
     el: '#app',

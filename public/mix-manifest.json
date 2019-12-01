@@ -1,4 +1,12 @@
 {
     "/dist/js/app.js": "/dist/js/app.js",
-    "/dist/css/app.css": "/dist/css/app.css"
+    "/dist/css/app.css": "/dist/css/app.css",
+    "/dist/js/chunks/store-modules-user.js": "/dist/js/chunks/store-modules-user.js",
+    "/dist/js/chunks/store-modules-user-actions.js": "/dist/js/chunks/store-modules-user-actions.js",
+    "/dist/js/chunks/store-modules-user-getters.js": "/dist/js/chunks/store-modules-user-getters.js",
+    "/dist/js/chunks/store-modules-user-mutations.js": "/dist/js/chunks/store-modules-user-mutations.js",
+    "/dist/js/chunks/store-modules-user-state.js": "/dist/js/chunks/store-modules-user-state.js",
+    "/dist/js/chunks/games-SocialGame-SocialGame.js": "/dist/js/chunks/games-SocialGame-SocialGame.js",
+    "/dist/js/chunks/modules-BaseGameScene.js": "/dist/js/chunks/modules-BaseGameScene.js",
+    "/dist/js/chunks/vendors~games-SocialGame-SocialGame~modules-BaseGameScene.js": "/dist/js/chunks/vendors~games-SocialGame-SocialGame~modules-BaseGameScene.js"
 }
