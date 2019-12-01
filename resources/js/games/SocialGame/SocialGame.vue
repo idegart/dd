@@ -25,7 +25,7 @@
                     <div class="modal-footer">
                         <ul class="list-unstyled w-100 m-0">
                             <li>
-                                <button @click="startGame" type="button" class="btn btn-primary btn-lg btn-block">
+                                <button @click.native="startGame" type="button" class="btn btn-primary btn-lg btn-block">
                                     Попытать удачу
                                 </button>
                             </li>
