@@ -5,6 +5,9 @@ export default {
         console.log('VKApp request initialization', {app_id})
         commit('app_id', app_id)
         dispatch('dispatchEvent', {type: "VKWebAppInit"})
+
+        console.log('VKApp was pseudo initialized')
+        commit('initialized', true)
     },
 
     getUserInfo: ({dispatch}) => {
